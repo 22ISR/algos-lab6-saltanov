@@ -1,3 +1,5 @@
+import random 
+
 """
 Практическая работа: Создание игры «Виселица»
 
@@ -46,6 +48,7 @@
         Подсказка: Используйте цикл while и запрос на ввод "Хотите сыграть снова? (да/нет)".
 """
 
+
 HANGMANPICS = [
     """
   +---+
@@ -83,7 +86,7 @@ HANGMANPICS = [
   +---+
   |   |
   O   |
- /|\\  |
+ /|\  |
       |
       |
 =========""",
@@ -91,7 +94,7 @@ HANGMANPICS = [
   +---+
   |   |
   O   |
- /|\\  |
+ /|\  |
  /    |
       |
 =========""",
@@ -99,8 +102,8 @@ HANGMANPICS = [
   +---+
   |   |
   O   |
- /|\\  |
- / \\  |
+ /|\  |
+ / \  |
       |
 =========""",
 ]
@@ -202,3 +205,76 @@ COMMON_NOUNS = [
     "участие",
 ]
 
+# answer = list(random.choice(COMMON_NOUNS))
+# print("".join(answer))
+# count = 7
+# while True:
+#     print(f"В ващем слове {len(answer)} букв")
+#     playfield = []
+#     for i in answer: 
+#         playfield.append("_")
+#     user_letter = input("Введите букву: ")  
+#     print(f'слово: {"".join(playfield)}')
+
+#     if len(user_letter) > 1:
+#         print("Неверное количество букв в слове!")
+#         continue
+
+#     for i in range(len(answer)):
+#         if answer[i] == user_letter[0]:
+#             playfield[i] = user_letter[0]
+        
+            
+
+#     while True: 
+#         user_letter = (input(f"Попыток осталось:{count}\nВведите букву: "))
+#         letter = 1
+#         count -= 1
+#         if len(user_letter) > 1:
+#             print("Неверное количество букв в слове!")
+#             user_letter = (input("Введите букву: "))
+
+
+def game():
+    answer = list(random.choice(COMMON_NOUNS))
+    print("".join(answer))
+    at = 7
+    playfield = []
+    for i in answer:
+        playfield.append('_')
+
+    while True:
+        print("word:")
+        print("".join(playfield))
+        x = input("enter letter:")
+        
+        if len(x) > 1:
+            print("Нужно вводить только одну букву")
+            continue
+
+        for i in range(len(answer)):
+            if x == answer[i]:
+                playfield[i] = x
+
+        if answer == playfield:
+            print('You win')
+            break
+
+        if x in answer:
+            continue
+        else:
+            print(HANGMANPICS[at])
+            at -= 1
+
+        if at == 0:
+            print('You lost')
+            break
+
+
+while True:
+    user = input('Хотите сыграть?:(Напишите вариант Да/Нет)  ')
+    if user == 'Да':
+        game()
+    elif user == 'Нет':
+        print('Ладно')
+        break
